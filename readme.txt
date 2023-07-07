@@ -1,7 +1,5 @@
 testapp/hr_viton 폴더 용량이 커서 GitHub에 올라가지 않아서.. 제외시키고 GitHub에 올렸습니다.
 
-+) detectron2 폴더도 제외
-
 [ 가상 환경 세팅하기 ]
 : hr_viton이 작업 폴더 안에 있는 상태에서 
 hr_viton/preprocessing/env_viton.yaml 으로 가상환경 불러오기.
