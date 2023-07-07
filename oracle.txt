@@ -1,0 +1,43 @@
+oracle
+
+DB 이름 ctp
+
+
+테이블 member
+컬럼 MEM_ID,MEM_PASS,MEM_NAME,MEM_EMAIL,MEM_IMG,MEM_CRT
+테이블 PHOTO
+컬럼 REQ_NO,F_MEM_ID,MEM_PHOTO,CLT_PHOTO
+
+----------------------------------------------------
+
+[SQL 쿼리 생성문]
+
+system 워크시트에 입력
+
+alter session set "_ORACLE_SCRIPT" = true;
+
+create User ctp
+Identified By dbdb;
+
+
+
+Grant Connect, Resource, DBA To gwangju_b;
+
+
+CREATE TABLE member (
+  MEM_ID VARCHAR(50) PRIMARY KEY,
+  MEM_PASS VARCHAR(50),
+  MEM_NAME VARCHAR(50),
+  MEM_EMAIL VARCHAR(100),
+  MEM_IMG VARCHAR(100),
+  MEM_CRT VARCHAR(50)
+);
+
+
+CREATE TABLE PHOTO (
+  REQ_NO VARCHAR(50),
+  F_MEM_ID VARCHAR(50),
+  MEM_PHOTO VARCHAR(100),
+  CLT_PHOTO VARCHAR(100),
+  CONSTRAINT PK_PHOTO PRIMARY KEY (REQ_NO, F_MEM_ID)
+);

@@ -1,0 +1,25 @@
+<style>
+    /* 추가된 CSS */
+    .sticky-footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #FFFCF6;
+        padding: 10px;
+        text-align: center;
+    }
+</style>
+
+{% load static %}
+
+<div class="pt-3 text-center pb-3 sticky-footer">
+    <h6 class="fw-bold">
+        <a href="#">
+            <img src="{% static 'testapp/img/cloth.png' %}" alt="" width="25" height="25" class="d-inline-block align-text-center">
+        </a>   
+        옷입혀조
+    </h6>
+    Copyright ⓒ   <img src="{% static 'testapp/img/kepco.png' %}" alt="" width="25" height="25" class="d-inline-block align-text-center">
+    KEPCO_Digital_Bootcamp 1기 최종 프로젝트(가상 피팅 서비스). All Rights Reserved.
+</div>

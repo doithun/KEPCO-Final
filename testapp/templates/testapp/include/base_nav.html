@@ -1,0 +1,81 @@
+{% load static %}
+
+<link href="{% static 'testapp/css/base_nav.css' %}" 
+        rel="stylesheet" 
+        type="text/css">
+
+<script type = "text/javascript">
+    function goLogin(){
+
+        alert("로그인 후 이용가능합니다.")
+
+        url = "/login_logout/";
+        location.href = url;
+    }
+
+    function gomain(){
+        location.href="/index/"
+    }
+</script>  
+
+<nav class="navbar navbar-expand-lg" style="background-color:">    
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold fs-2 ms-5 text-reset pe-5" href="/index/">
+            <img src="{% static 'testapp\img\logo.png' %}" alt="Logo" width="150" height="150" class="d-inline-block align-text-center" type="button" style="margin-right: 15px; onclick="gomain()">
+            <img src="{% static 'testapp\img\title.png' %}" alt="Title" width="400" height="auto" class="d-inline-block align-text-center" type="button" onclick="gomain()">
+        </a>
+        <div class="justify-content-center fs-5" id="navbarCollapse">
+            <ul class="navbar-nav">
+
+                <!-- <li class="nav-item pe-5"> 
+                    <a class="nav-link text-reset" aria-current="page" href="/index/">Home</a>
+                </li> -->
+
+                <!-- <li class="nav-item pe-5">
+                    {% if request.session.ses_mem_id == None %}
+                    <a class="nav-link text-reset" aria-current="page" href="">옷 고르기</a>
+                    {% else %}
+                    <a class="nav-link text-reset" aria-current="page" href="">옷 고르기</a>                   
+                    {% endif %}
+                </li> -->
+            </ul>
+        </div>
+
+        {% if request.session.ses_mem_id == None %}
+        <div class="justify-content-end fs-5 pe-5" id="navbarCollapse"> 
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-reset" aria-current="page" href="/login_logout/" tabindex="-1" aria-disabled="true">
+                        <img src="{% static 'testapp/img/cloth.png' %}" alt="Logo" width="30" height="30" class="d-inline-block align-text-center">
+                        로그인
+                    </a>
+                </li>
+            </ul>
+        </div>
+        {% else %}
+        <div class="justify-content-end fs-5" id="navbarCollapse"> 
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-reset" aria-current="page" href="/logout/" tabindex="-1" aria-disabled="true">
+                        <img src="{% static 'testapp/img/cloth.png' %}" alt="Logo" width="30" height="30" class="d-inline-block align-text-center">
+                        로그아웃
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+            <a class="nav-link text-reset" aria-current="page" href="/mypage/" tabindex="-1" aria-disabled="true">
+                <img src="{% static 'testapp/img/cloth.png' %}" alt="Logo" width="30" height="30" class="d-inline-block align-text-end">
+                MY({{ request.session.ses_mem_name }})
+            </a>
+            </ul>
+        </div>
+    </div>
+        {% endif %}
+</nav>
+</div>
+
+
+
+

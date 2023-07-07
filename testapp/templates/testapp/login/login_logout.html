@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <style>
+    html,
+    body {
+        height: 100%;
+    }
+    
+    body {
+        display: flex;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-image: url("{% static 'testapp/img/login_page.jpg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;         
+    }
+    
+    .form-signin {
+        width: 100%;
+        max-width: 330px;
+        padding: 15px;
+        margin: auto;
+    }
+    
+    .form-signin .checkbox {
+        font-weight: 400;
+    }
+    
+    .form-signin .form-floating:focus-within {
+        z-index: 2;
+    }
+    
+    .form-signin input[type="email"] {
+        margin-bottom: -1px;
+        border-bottom-right-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    
+    .form-signin input[type="password"] {
+        margin-bottom: 10px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+    </style>
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>::: 로그인 :::</title>
+
+
+    <script type="text/javascript">
+        function goLogin(){
+            fm = document.getElementById("fm");
+            fm.action = "/login/"
+            fm.submit();
+        }
+
+        function gocreate(){
+            location.href="/mem_plus/";
+        }
+
+        function goLogout(){
+            location.href="/logout/";
+        }
+        function gomain(){
+            location.href="/index/"
+        }
+
+        function goBack() {
+            history.go(-1);
+        }
+    </script>
+
+    <style>
+        .fs-6 {
+            font-size: 0.8rem !important;
+        }
+    </style>
+</head>
+
+<body style = "background-color:#FFFCF6;">
+
+    <div class="form-signin text-center">
+        {% if request.session.ses_mem_id == None %}
+            
+            <h1 class="h3 mb-3 fw-normal">로그인</h1>
+            <img src="{% static 'testapp/img/logo.png' %}" alt="" width="200" height="auto" class="mb-4" onclick=gomain()>
+            <hr/>
+
+            <form name="fm" id="fm" method="post" action="#">
+                {% csrf_token %}
+
+                <div class="form-floating">
+                    <input type="text" class="form-control" name="mem_id" placeholder="아이디 입력">
+                    <label for="id"></label>
+                </div>
+
+                <div class="form-floating">
+                    <input type="password" class="form-control" name="mem_pass" placeholder="비밀번호 입력">
+                    <label for="pwd"></label>
+                </div>
+                <button onclick="goLogin()" class="w-100 btn btn-lg btn-warning" type="submit">로그인</button>
+            </form>       
+        {% else %}
+            <h3>로그인 확인</h3>
+            <hr/>
+            현재 로그인 아이디 : {{ request.session.ses_mem_id }}
+            <br/>
+            현재 로그인 이름  : {{ request.session.ses_mem_name }}
+            <hr/>
+            <br/>
+            <button onclick="goLogout()">로그아웃</button>
+        {% endif %}
+
+        <br/>
+        <br/>
+
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 text-lg-start text-center">
+                <button onclick="gocreate()" class="btn btn-warning">회원가입</button>
+            </div>
+            <div class="col-lg-6 col-sm-12 text-lg-end text-center mt-sm-auto">
+            <button type="button" class="btn btn-warning" onclick="goBack()">취소</button>
+            </div>
+        </div>
+    
+    {% include 'testapp/include/lib/bottstrap_js.html' %}
+</body>
+</html>
+

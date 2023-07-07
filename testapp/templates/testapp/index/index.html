@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html xmlns:og="http://ogp.me/ns#" lang="ko" class="" 
+        data-useragent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.5481.178 Safari/537.36">
+
+<head>
+    {% include 'testapp/include/pu_definition.html' %} 
+    {% include 'testapp/include/lib/bootstrap_css.html' %}
+    {% include 'testapp/include/lib/jQuery.html' %}  
+    <link href="{% static 'testapp/css/base.css' %}"
+            rel="stylesheet" 
+            type="text/css">
+
+        <script type="text/javascript">
+            function goReport() {
+                    //fm 이름에 속해있는 모든 객체 가져오기
+                    var fm = document.getElementById("fm");
+
+                    // 이미지 파일 입력 여부 확인하기
+                    if(fm.mem_photo.value == "") {
+                        alert("당신의 이미지 파일을 첨부해 주세요");
+                        fm.mem_photo.focus();
+                        return false;
+                    }
+                    
+                    if(fm.clt_photo.value == "") {
+                        alert("옷 이미지를 첨부해 주세요");
+                        fm.clt_photo.focus();
+                        return false;
+                    }
+
+                    
+                    // 이동할 페이지 정의(즉, 요청페이지 정의)
+                    fm.action = "/photo_save/"; 
+        
+                    // 전송해주세요..처리
+                    fm.submit();
+                    }
+                    function goBack() {
+                        history.go(-1);
+                    }
+                    function gocreate() {
+                        alert("이미지를 생성중입니다. 잠시만 기다려주세요!");
+                        location.href="/photo_create/";
+                    }
+        </script>
+
+        <style>
+            .block {
+                border-style: solid;
+                border-width: 3px;
+                border-color: #fcbe32;
+            }
+
+            .block {
+                /* Shorthand syntax */
+                border: solid 3px #fcbe32;
+                border-radius: 10px;
+                padding: 40px 40px 40px 40px;
+            }
+
+            #contents{
+                width: auto;
+                height: auto;
+                background: white;
+            }
+
+            .center-image {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+            }
+
+            button {
+                margin-bottom: 9px;
+            }
+            
+        </style>
+</head>
+
+<body style = "background-color:#FFFCF6;">
+    <div class="container-fluid px-0">
+        <!-- 상단 -->
+        <div >
+            <header>
+                {% include 'testapp/include/base_nav.html' %}               
+            </header>
+            
+        </div>
+
+            <!-- 페이지 메인 내용 --> 
+            <div style="min-height: 58vh;">
+            <div>
+                <main>
+                    <div class="container d-flex flex-wrap justify-content-center" style="color : black;">
+                    <form id="fm" name="fm" method="post" enctype="multipart/form-data"
+                            action="#"> 
+                            {% csrf_token %}
+
+                            <div class="text-center pb-5 fs-1">
+                                <p class="">
+                                    사진을 등록하겠습니다.
+                                </p>
+                                
+                            </div>
+
+                            <p>
+                                <label for="file">당신의 이미지</label>
+                                <input type="file" name="mem_photo" id="mem_photo" 
+                                class="form-control" aria-label="file example" accept="image/*" onchange="setThumbnail(event);" required>  
+                            </p>
+
+                            <p>
+                                <label for="file">옷 이미지</label>
+                                <input type="file" name="clt_photo" id="clt_photo" 
+                                class="form-control" aria-label="file example" accept="image/*" onchange="setThumbnail(event);" required>  
+                            </p>
+
+                            <div id="image_container"></div>
+
+                            <script>
+                                function setThumbnail(event) {
+                                    var reader = new FileReader();
+                                
+                                    reader.onload = function(event) {
+                                        var img = document.createElement("img");
+                                        img.setAttribute("src", event.target.result);
+                                
+                                        // 기존의 이미지를 삭제
+                                        var imageContainer = document.querySelector("div#image_container");
+                                        imageContainer.innerHTML = "";
+                                
+                                        imageContainer.appendChild(img);
+                                    };
+                                
+                                    reader.readAsDataURL(event.target.files[0]);
+                                }
+                                </script>
+
+                            <br/>
+
+                                <div class="col-lg-6 col-sm-12 text-lg-end text-center mt-sm-auto">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-sm-12 text-lg-start text-center">
+                                            <button type="button" class="btn btn-outline-warning fw-bold"  style="color : black"
+                                            onclick="goReport()">업로드</button>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12 text-lg-start text-center">
+                                            <button type="button" class="btn btn-outline-warning fw-bold"  style="color : black"
+                                                onclick="goBack()">취소</button>
+                                        </div>
+
+                                        <div class="col-lg-6 col-sm-12 text-lg-start text-center">
+                                            <button type="button" class="btn btn-outline-warning fw-bold"  style="color : black"
+                                                onclick="gocreate()">이미지 합성</button>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>          
+                    </form> 
+                    </span>
+                    </div>             
+                </main>
+                
+            </div>
+            <div class="center-image">
+                <img src="{% static image_path %}" alt="Generated Image">
+            </div>
+        <!-- 하단 --> 
+        <div>
+            <footer>
+                {% include 'testapp/include/base_footer.html' %}     
+            </footer>
+        </div>
+    </div>   
+
+    {% include 'testapp/include/lib/bottstrap_js.html' %}
+</body>
+</html>

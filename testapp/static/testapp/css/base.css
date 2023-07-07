@@ -1,0 +1,22 @@
+
+*{
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+#notice_contents{
+    width: auto;
+    height: auto;
+    background: white;
+}
+
+#protect_contents{
+    width: auto;
+    height: auto;
+    background: white;
+}
+
+#find_contents{
+    width: auto;
+    height: auto;
+    background: white;
+}
